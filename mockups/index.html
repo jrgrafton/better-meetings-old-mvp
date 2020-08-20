@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+
+    <title>BetterMeetings</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+
+
+    <style>
+      body {
+          background: #f0f2f5;
+      }
+      .card {
+        border-radius: max(0px, min(8px, calc((100vw - 4px - 100%) * 9999))) / 8px;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        border: 0px;
+      }
+    </style>
+
+  </head>
+
+  <body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+      <div class="container">
+        <a class="navbar-brand" href="#">BetterMeetings</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a class="nav-link active" href="#">
+                Overview
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="meeting-logs.html">Meeting Logs</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-2"></div>
+        <div class="col-lg-8">
+            <h1 class="mt-5">Your week so far</h1>
+            <p class="lead">We've crunched the numbers, here's some recommendations...</p>
+            <div class="card text-white bg-dark mb-3">
+              <div class="card-header">
+                <svg style="margin-top:-5px" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24" viewBox="0 0 24 24" width="24"><g><rect fill="none" height="24" width="24"/></g><g><path style="fill:#fff;" d="M22 8.51v1.372h-2.538c.02-.223.038-.448.038-.681 0-.237-.017-.464-.035-.69h2.535zm-10.648-6.553v-1.957h1.371v1.964c-.242-.022-.484-.035-.726-.035-.215 0-.43.01-.645.028zm5.521 1.544l1.57-1.743 1.019.918-1.603 1.777c-.25-.297-.593-.672-.986-.952zm-10.738.952l-1.603-1.777 1.019-.918 1.57 1.743c-.392.28-.736.655-.986.952zm-1.597 5.429h-2.538v-1.372h2.535c-.018.226-.035.454-.035.691 0 .233.018.458.038.681zm9.462 9.118h-4c-.276 0-.5.224-.5.5s.224.5.5.5h4c.276 0 .5-.224.5-.5s-.224-.5-.5-.5zm0 2h-4c-.276 0-.5.224-.5.5s.224.5.5.5h4c.276 0 .5-.224.5-.5s-.224-.5-.5-.5zm.25 2h-4.5l1.188.782c.154.138.38.218.615.218h.895c.234 0 .461-.08.615-.218l1.187-.782zm3.75-13.799c0 3.569-3.214 5.983-3.214 8.799h-1.989c-.003-1.858.87-3.389 1.721-4.867.761-1.325 1.482-2.577 1.482-3.932 0-2.592-2.075-3.772-4.003-3.772-1.925 0-3.997 1.18-3.997 3.772 0 1.355.721 2.607 1.482 3.932.851 1.478 1.725 3.009 1.72 4.867h-1.988c0-2.816-3.214-5.23-3.214-8.799 0-3.723 2.998-5.772 5.997-5.772 3.001 0 6.003 2.051 6.003 5.772z"/></g></svg>
+                <b>Top tip</b>
+              </div>
+              <div class="card-body">
+                <p class="card-text">You've only spoken in 20% of your meetings so far this week. You should  <a href="#">review</a> whether your attendendance is still required.</p>
+              </div>
+            </div>
+
+            <div class="card-deck mb-3">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Time in meetings</h5>
+                  <div class="row text-center card-text">
+                    <div class="col-lg-2"></div>
+                    <div class="col-lg-4"><h1>5</h1>Hour(s)</div>
+                    <div class="col-lg-4"><h1>20</h1>Minute(s)</div>
+                    <div class="col-lg-2"></div>
+                  </div>
+                </div>
+                <div class="card-footer"><small class="text-danger">&uarr; 2h 30m from last week</small></div>
+              </div>
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">
+                    <a href="#" data-html="true" data-toggle="tooltip" data-placement="top" title="Amount of time you've saved others by ending your meetings early">Saved time</a>
+                  </h5>
+                  <div class="row text-center card-text">
+                    <div class="col-lg-2"></div>
+                    <div class="col-lg-4"><h1>1</h1>Hour(s)</div>
+                    <div class="col-lg-4"><h1>20</h1>Minute(s)</div>
+                    <div class="col-lg-2"></div>
+                  </div>
+                </div>
+                <div class="card-footer"><small class="text-success">&uarr; 30m from last week. <b>NICE &#127881;</b></small></div>
+              </div>
+            </div>
+
+            <div class="card-deck mb-3">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Meeting inclusion</h5>
+                  <div class="row text-center card-text">
+                    <div class="col-lg-12"><h1>7.5</h1>Meeting inclusion <a href="#" data-html="true" data-toggle="tooltip" data-placement="top" title="<u><b>Score out of 10</b></u><br />Aggregate analysis of diversity of speaker contributions in your meetings">score</a></div>
+                  </div>
+                </div>
+                <div class="card-footer"><small class="text-success">&uarr; 1.1 from last week</small></div>
+              </div>
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Meeting participation</h5>
+                  <div class="row text-center card-text">
+                    <div class="col-lg-12"><h1>20%</h1> of attended meetings where you spoke</div>
+                  </div>
+                </div>
+                <div class="card-footer"><small class="text-success">&uarr; 5% pts from last week</small></div>
+              </div>
+            </div>
+        </div>
+        <div class="col-lg-2"></div>
+      </div>
+    </div>
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script>
+      $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+      });
+    </script>
+  </body>
+</html>

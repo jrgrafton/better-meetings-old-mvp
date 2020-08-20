@@ -1,0 +1,21 @@
+<script src="../js/handlebars.min-v4.7.6.js" crossorigin="anonymous"></script>
+<script>
+	window.addEventListener('message', function(event) {
+		var command = event.data.command;
+		var renderTemplate = event.data.renderTemplate;
+		var renderData = event.data.renderData;
+		var targetElementSelector = event.data.targetElementSelector;
+
+		switch(command) {
+			case 'render':
+				var compiledTemplate = Handlebars.compile(renderTemplate);
+				var html = compiledTemplate(renderData);
+				event.source.postMessage({ 
+					command: command,
+					targetElementSelector: targetElementSelector,
+					html: html}, 
+					event.origin);
+			break;
+		}
+	});
+</script>

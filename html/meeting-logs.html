@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+
+    <title>BetterMeetings</title>
+
+    <link rel="stylesheet" href="../css/bootstrap.min.css" crossorigin="anonymous" />
+    <link rel="stylesheet" href="../css/better-meetings.css" />
+  </head>
+
+  <body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+      <div class="container">
+        <a class="navbar-brand" href="#">BetterMeetings</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Overview</a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link active" href="#">
+                Meeting Logs
+                <span class="sr-only">(current)</span></a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container page-container">
+      <div class="row">
+        <div class="col-lg-2"></div>
+        <div class="col-lg-8">
+            <span class="no-meetings-found">
+              <h1 class="mt-5">No meetings</h1>
+              <p class="lead">No meetings have been recorded yet this week, check back later</p>
+            </span>
+            <span class="meetings-found">
+                <div class="row header">
+                    <div class="col-lg-8">
+                        <span id="template-output-week-starting">
+                            <script id="template-week-starting" type="x-tmpl-handlebars">
+                                <h2 class="mt-5">Week of {{ currentDay }}<sup>{{ currentDayPostfix }}</sup> {{ currentMonth }} {{ currentYear }}</h2>
+                            </script>
+                        </span>
+                        <p class="lead">Overview of all recorded meeting activity</p>
+                    </div>
+
+                    <div class="col-lg-4 filters">
+                        <div class="dropdown">
+                          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButtonDays" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Filter by day
+                          </button>
+                          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <span id="template-output-filter-days">
+                                <script id="template-filter-days" type="x-tmpl-handlebars">
+                                    {{#each filterDays as |item|}}
+                                        <a class="dropdown-item" href="#">{{item}}</a>
+                                    {{/each}}
+                                </script>
+                            </span>
+                          </div>
+                        </div>
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButtonOrganizer" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Filter by organizer
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <form class="px-4 py-3">
+                                    <input type="text" class="form-control" id="organizerFilterInput" placeholder="e.g. your name">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <span id="template-output-meetings">
+                    <script id="template-meetings" type="x-tmpl-handlebars">
+                        {{#each meetingDays}}
+                            <span class="meeting-day-group" data-meeting-day={{ dayName }}>
+                            <div class="meeting-day"><h4>{{ dayName }}, {{ day }}<sup>{{ dayPostfix }}</sup> {{ monthName }}</h4></div>
+                            <hr>
+                            {{#each meetings}}
+                                <div class="meeting" data-meeting-organizer="{{ meetingHost }}" data-meeting-you-participated="{{ youParticipated }}">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <h5 class="meeting-title"><a href="https://calendar.google.com/calendar/r/eventedit/{{ calendarEventID }}" target="_blank">{{ meetingName }}</a></h5>
+                                            <div class="meeting-time">
+                                                <p>{{ meetingJoinTimeString }} - {{{ meetingLeaveTimeString }}}&nbsp;&nbsp;<span style="font-size: 12px" class="text-muted">{{ meetingTimeSavedString }}</span></p>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="meeting-attendees" style="margin-bottom:14px">
+                                                {{#each meetingParticipants}}
+                                                    <div class="d-flex flex-row" style="min-height: 30px; margin-bottom:5px">
+                                                        <div style="text-align:center;">
+                                                            <img style="border-radius: 50%" src="{{ image }}">
+                                                        </div>
+                                                        <div class="participation">
+                                                            <div class="bar" style="width:{{ participationPercentage }}%;"></div>
+                                                            <div class="name {{#if isOrganizer}}organizer{{/if}}">{{ name }}{{#if isOrganizer}}<br/><span>Organizer</span>{{/if}}</div>
+                                                        </div>
+                                                        <div class="participation-time"><span>{{ timeSpokenMins }}m {{ timeSpokenSecs }}s ({{ participationPercentage }}%)</span></div>
+                                                    </div>
+                                                {{/each}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="transcript">
+                                        <textarea>
+                                            {{#each meetingTranscript}}
+    [{{ speakerStartString }}] {{speakerName}}: {{ speakerUtterance }}
+
+                                            {{/each}}
+                                        </textarea>
+                                    </div>
+                                </div>
+                            {{/each}}
+                            </span>
+                        {{/each}}
+                    </script>
+                </span>
+            </div>
+        </span>
+        <div class="col-lg-2"></div>
+      </div>
+    </div>
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="../js/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script>
+    <script src="../js/popper.min.js" crossorigin="anonymous"></script>
+    <script src="../js/bootstrap.min.js" crossorigin="anonymous"></script>
+
+    <!-- Now BetterMeetings scripts -->
+    <script src="../better-meetings.js"></script>
+    <script src="../better-meetings-meeting-logs.js"></script>
+    <script src="../main.js"></script>
+  </body>
+</html>

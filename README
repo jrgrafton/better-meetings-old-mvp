@@ -1,0 +1,18 @@
+Tutorial of how Chrome extensions work
+==========================================
+https://medium.com/@divakarvenu/lets-create-a-simple-chrome-extension-to-interact-with-dom-7bed17a16f42
+
+Tutorial of using GA for extensions
+==========================================
+https://developer.chrome.com/extensions/tut_analytics
+
+Known issues
+==========================================
+* (gMeet) Transcriptions are keyed on (day-meetid). Identical same day meets will over write
+* (gMeet) Subtitles are required to capture meeting participation
+* (gCal) Calendar data is scraped rather than via API. Known issues:
+	- Unable to capture all guests in group or when guest list is large
+	- Assumes all meetings times are in local timezones
+	- Calendar data will only be captured when joining via GVC button in calendar
+	- Code is not resiliant to network outages
+	- Meeting host may be incorrectly captured

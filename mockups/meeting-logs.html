@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+
+    <title>BetterMeetings</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+
+    <style>
+
+        body {
+            background: #f0f2f5;
+        }
+
+        .header .filters {
+            margin-top: 3rem;
+            text-align: right;
+        }
+        .header .filters .dropdown {
+            margin-bottom: 10px;
+        }
+
+        .meeting {
+            border-radius: max(0px, min(8px, calc((100vw - 4px - 100%) * 9999))) / 8px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+            background: #fff;
+            margin-bottom: 20px;
+            padding-top: 12px;
+            padding-bottom: 10px;
+            padding-right: 16px;
+            padding-left: 16px;
+        }
+
+        .meeting .participation {
+            overflow: hidden;
+            background-image: -webkit-linear-gradient(top, #f5f5f5, #f9f9f9);
+            background-repeat: repeat-x;
+
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+
+            display:flex; margin-left:10px; 
+            /* background-color: #007bff; */
+            width: 300px; 
+            color: white; 
+            border-radius: calc(.25rem - 1px) calc(.25rem - 1px) calc(.25rem - 1px) calc(.25rem - 1px);
+        }
+        .meeting .participation .bar {
+            background-color: #0e90d2;
+            /*background-image: -webkit-linear-gradient(top, #149bdf, #0480be);*/
+
+            background-repeat: repeat-x;
+            box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+            box-sizing: border-box;
+        }
+
+        .meeting .participation .name, .participation-time {
+            text-shadow:
+            -1px -1px 0 #333,  
+            1px -1px 0 #333,
+            -1px 1px 0 #333,
+             1px 1px 0 #333;
+        }
+
+        .meeting .participation .name {
+            padding-left: 8px; 
+            font-size:12px; 
+            position: absolute;
+            line-height: 30px;
+            white-space: nowrap;
+            font-weight: 600;
+        }
+
+        .meeting .participation .name.organizer {
+            line-height: 12px;
+            margin-top: 4px;
+        }
+
+        .meeting .participation .name.organizer span {
+            font-size: 10px;
+            font-weight: 300;
+        }
+
+        .meeting .participation-time {
+            font-size:10px; 
+            font-weight: 600;
+            display:flex; 
+            align-items: center; 
+            margin-left:-80px; 
+            color:white;
+        }
+
+        .transcript textarea {
+            width:100%;
+            font-size: 12px;
+            height: 100px;
+            border: 1px solid #ced4da;
+            border-radius: .25rem;
+            color: #3c4043;
+            background-color: #f1f3f4;
+            resize: none;
+           /* background-color: rgba(241,243,244,0.749);*/
+        }
+
+    </style>
+
+
+  </head>
+
+  <body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+      <div class="container">
+        <a class="navbar-brand" href="#">BetterMeetings</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Overview</a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link active" href="#">
+              	Meeting Logs
+                <span class="sr-only">(current)</span></a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-2"></div>
+        <div class="col-lg-8">
+            <div class="row header">
+                <div class="col-lg-6">
+                    <h2 class="mt-5">Week of 27<sup>th</sup> July 2020</h2>
+                    <p class="lead">Overview of all recorded meeting activity</p>
+                </div>
+                <div class="col-lg-6 filters">
+                    <div class="dropdown">
+                      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Filter by day
+                      </button>
+                      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="#">All</a>
+                        <a class="dropdown-item" href="#">Monday</a>
+                        <a class="dropdown-item" href="#">Tuesday</a>
+                        <a class="dropdown-item" href="#">Wednesday</a>
+                      </div>
+                    </div>
+                    <div class="dropdown">
+                      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Filter by organizer
+                      </button>
+                      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="#">You</a>
+                        <a class="dropdown-item" href="#">Ray Bautista</a>
+                        <a class="dropdown-item" href="#">Marc Chambers</a>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="meeting-day"><h4>Thursday, 30<sup>th</sup> June</h4></div>
+            <hr>
+            <div class="meeting">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <h5 class="meeting-title"><a href="#">PRE-HUDDLE: Partner Tech Sync</a></h5>
+                        <div class="meeting-time">
+                            <p>16:00 - <span style="color:#28a745">16:20</span>&nbsp;&nbsp;<span style="font-size: 12px" class="text-muted">(Ray saved 40 minutes)</span></p>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="meeting-attendees" style="margin-bottom:14px">
+                            <div class="d-flex flex-row" style="min-height: 30px; margin-bottom:5px">
+                                <div style="text-align:center;">
+                                    <img style="border-radius: 50%" src="https://lh3.googleusercontent.com/a-/AOh14GgogDciVGhN9hKExfaUsX1BC-Dow0VV96Tn8OoN=s24-c">
+                                </div>
+                                <div class="participation">
+                                    <div class="bar" style="width:66%;"></div>
+                                    <div class="name organizer">Ray Bautista<br/><span>Organizer</span></div>
+                                </div>
+                                <div class="participation-time"><span>20 mins (66%)</span></div>
+                            </div>
+
+
+                            <div class="d-flex flex-row" style="min-height: 30px; margin-bottom:5px">
+                                <div style="text-align:center;">
+                                    <img style="border-radius: 50%" src="https://lh3.googleusercontent.com/a-/AOh14GhzTpoLP5vxrevYNnkPYXTZOIdBEqiUukzYK27Y=s24-c;">
+                                </div>
+                                <div class="participation">
+                                    <div class="bar" style="width:16%;"></div>
+                                    <div class="name">James Freedman</div>
+                                </div>
+                                <div class="participation-time"><span>5 mins (16%)</span></div>
+                            </div>
+
+
+                            <div class="d-flex flex-row" style="min-height: 30px; margin-bottom:5px">
+                            	<div style="text-align:center;">
+                            		<img style="border-radius: 50%" src="https://lh3.googleusercontent.com/a-/AOh14GhB6834fv1MgGJjd2s7-g_6JvlHDhO0gYbJ_yRTgqw=s24-c">
+                            	</div>
+                            	<div class="participation">
+                            		<div class="bar" style="width:8%;"></div>
+                                    <div class="name">Marc Chambers</div>
+                            	</div>
+                            	<div class="participation-time"><span>2 mins (8%)</span></div>
+                            </div>
+
+
+                            <div class="d-flex flex-row" style="min-height: 30px; margin-bottom:5px">
+                                <div style="text-align:center;">
+                                    <img style="border-radius: 50%" src="https://lh3.googleusercontent.com/a-/AOh14GgxD4YERZ37mgbszDSgdWWPeDwMiaj2x0rW98dJ=s24-c">
+                                </div>
+                                <div class="participation">
+                                    <div class="bar" style="width:0%;"></div>
+                                    <div class="name">James Grafton</div>
+                                </div>
+                                <div class="participation-time"><span>0 mins (0%)</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="transcript">
+                    <textarea>
+[0:00] James Freedman: Hey Ray, how you doing? 
+
+[0:01] Ray Bautista: Hi, I'm good. And you? 
+
+[0:04] James Freedman: Yeah, not too bad. Thanks, you know Monday see getting through. 
+
+[0:10] Ray Bautista: Where are you based? 
+
+[0:13] James Freedman: I'm based in San Francisco right now. So Yes, um. 
+
+[0:17] Ray Bautista: nice 
+                    </textarea>
+                </div>
+            </div>
+            <div class="meeting">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <h5 class="meeting-title"><a href="#">Rand / James - KR coaching sync</a></h5>
+                        <div class="meeting-time">
+                            <p>15:30 - <span style="color:#28a745">15:55</span>&nbsp;&nbsp;<span style="font-size: 12px" class="text-muted">(James saved 10 minutes)</span></p>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="meeting-attendees" style="margin-bottom:14px">
+                            <div class="d-flex flex-row" style="min-height: 30px; margin-bottom:5px">
+                                <div style="text-align:center;">
+                                    <img style="border-radius: 50%" src="https://lh3.googleusercontent.com/a-/AOh14GgxD4YERZ37mgbszDSgdWWPeDwMiaj2x0rW98dJ=s24-c">
+                                </div>
+                                <div class="participation">
+                                    <div class="bar" style="width:43%;"></div>
+                                    <div class="name organizer">James Grafton<br/><span>Organizer</span></div>
+                                </div>
+                                <div class="participation-time"><span>12 mins (43%)</span></div>
+                            </div>
+
+
+                            <div class="d-flex flex-row" style="min-height: 30px; margin-bottom:5px">
+                                <div style="text-align:center;">
+                                    <img style="border-radius: 50%" src="https://lh3.googleusercontent.com/a-/AOh14Gj-5uih9FuXIq1YwbINjau5hv_JDRyVzI3va15baQ=s24-c">
+                                </div>
+                                <div class="participation">
+                                    <div class="bar" style="width:57%;"></div>
+                                    <div class="name">Rand Relatores</div>
+                                </div>
+                                <div class="participation-time"><span>13 mins (57%)</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="transcript">
+                    <textarea>
+[0:00] James Freedman: Hey Ray, how you doing? 
+
+[0:01] Ray Bautista: Hi, I'm good. And you? 
+
+[0:04] James Freedman: Yeah, not too bad. Thanks, you know Monday see getting through. 
+
+[0:10] Ray Bautista: Where are you based? 
+
+[0:13] James Freedman: I'm based in San Francisco right now. So Yes, um. 
+
+[0:17] Ray Bautista: nice
+                    </textarea>
+                </div>
+            </div>
+            <div class="meeting">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <h5 class="meeting-title"><a href="#">[bi-weekly] Porto XFN OKR check-in</a></h5>
+                        <div class="meeting-time">
+                            <p>12:00 - <span class="text-danger">12:40</span>&nbsp;&nbsp;<span style="font-size: 12px" class="text-muted">(Marcin cost 30 minutes)</span></p>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="meeting-attendees" style="margin-bottom:14px">
+                            <div class="d-flex flex-row" style="min-height: 30px; margin-bottom:5px">
+                                <div style="text-align:center;">
+                                    <img style="border-radius: 50%" src="https://lh3.googleusercontent.com/a-/AOh14GjeYqBSvemHJMf2qn6mSc73zpOBGdJHiQlR29VX=s24-c">
+                                </div>
+                                <div class="participation">
+                                    <div class="bar" style="width:55%;"></div>
+                                    <div class="name">Pawel Siarkiewicz</div>
+                                </div>
+                                <div class="participation-time"><span>22 mins (55%)</span></div>
+                            </div>
+
+                            <div class="d-flex flex-row" style="min-height: 30px; margin-bottom:5px">
+                                <div style="text-align:center;">
+                                    <img style="border-radius: 50%" src="https://lh3.googleusercontent.com/a-/AOh14Gh9jeszIiQr6pl8SzC5WmbAB9BlSQzz2Q42tvfw=s24-c">
+                                </div>
+                                <div class="participation">
+                                    <div class="bar" style="width:25%;"></div>
+                                    <div class="name organizer">Marcin Undak<br/><span>Organizer</span></div>
+                                </div>
+                                <div class="participation-time"><span>10 mins (25%)</span></div>
+                            </div>
+
+                            <div class="d-flex flex-row" style="min-height: 30px; margin-bottom:5px">
+                                <div style="text-align:center;">
+                                    <img style="border-radius: 50%" src="https://lh3.googleusercontent.com/a-/AOh14GgxD4YERZ37mgbszDSgdWWPeDwMiaj2x0rW98dJ=s24-c">
+                                </div>
+                                <div class="participation">
+                                    <div class="bar" style="width:20%;"></div>
+                                    <div class="name">James Grafton</div>
+                                </div>
+                                <div class="participation-time"><span>8 mins (20%)</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="transcript">
+                    <textarea>
+[0:00] James Freedman: Hey Ray, how you doing? 
+
+[0:01] Ray Bautista: Hi, I'm good. And you? 
+
+[0:04] James Freedman: Yeah, not too bad. Thanks, you know Monday see getting through. 
+
+[0:10] Ray Bautista: Where are you based? 
+
+[0:13] James Freedman: I'm based in San Francisco right now. So Yes, um. 
+
+[0:17] Ray Bautista: nice 
+
+[0:18] James Freedman: Not too bad. Not too late. Alright, so I'll take you through a few different questions. I'll leave some time at the end so that we can kind of try to more about the role and the organization and yeah, let me know. Let me know if you've got any questions at the end. And we'll see how we go through everything. 
+
+[0:45] Ray Bautista: Sure, sounds good. 
+                    </textarea>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-2"></div>
+      </div>
+    </div>
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script>
+      $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+      });
+    </script>
+  </body>
+</html>
