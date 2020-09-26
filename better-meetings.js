@@ -1,5 +1,6 @@
 function BetterMeetings() {
 	this.meetingSaveData_ = {};
+    this.earliestRecordedMeeting_ = null;
     this.processedMeetings_ = null;
 
     // Threshold under which you count as not participating in a meeting
@@ -49,7 +50,58 @@ BetterMeetings.prototype.init_ = function() {
     }.bind(this));
 }
 
-BetterMeetings.prototype.renderPageDetails_ = function() {}
+BetterMeetings.prototype.renderPageDetails_ = function() {
+    this.renderWeekStarting_();
+    this.renderWeekSelect_();
+}
+
+BetterMeetings.prototype.renderWeekStarting_ = function() {
+    var dateData = {}
+    var template = document.querySelector("#template-week-starting").innerHTML;
+
+    var monthNames = ["January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December"];
+    var d = this.getSelectedWeekStart_();
+
+    dateData.currentYear = d.getFullYear();
+    dateData.currentMonth = monthNames[d.getMonth()];
+    dateData.currentDay = d.getDate();
+    dateData.currentDayPostfix = this.getDayPostfix_(dateData.currentDay);
+
+    this.sendRenderTemplateRequest_(template, dateData, "#template-output-week-starting");
+}
+
+BetterMeetings.prototype.renderWeekSelect_ = function() {
+    var weekData = {}
+    var urlParams = new URLSearchParams(window.location.search);
+    var weeksAgo = parseInt(urlParams.get('weeks-ago'));
+    weeksAgo = (Number.isInteger(weeksAgo) && weeksAgo >= 0)? weeksAgo : 0;
+    var template = document.querySelector("#template-week-select").innerHTML;
+    var selectedWeek = this.getSelectedWeekStart_();
+    var currentDate = new Date();
+
+    // If selected week is latest then disable next week
+    if(weeksAgo === 0) {
+        weekData.nextWeekDisabled = "disabled";
+    }
+    else {
+        // URL for next week
+        urlParams.set("weeks-ago", weeksAgo - 1);
+        weekData.nextWeekURL = "?" + urlParams.toString();
+    }
+
+    // If earliest meeting is earlier then start of last week disable previous week
+    if(this.getSelectedWeekStart_().getTime() < this.earliestRecordedMeeting_.meetingLeaveTime) {
+        weekData.previousWeekDisabled = "disabled";
+    }
+    else {
+        // Url for previous week
+        urlParams.set("weeks-ago", weeksAgo + 1);
+        weekData.previousWeekURL = "?" + urlParams.toString();
+    }
+
+    this.sendRenderTemplateRequest_(template, weekData, "#template-output-week-select");
+}
 
 BetterMeetings.prototype.pageDetailsHaveRendered_ = function() {
     // Display page
@@ -67,6 +119,26 @@ BetterMeetings.prototype.pageDetailsHaveRendered_ = function() {
     $(function () { $('[data-toggle="tooltip"]').tooltip() });
 }
 
+BetterMeetings.prototype.getSelectedWeekStart_ = function() {
+    const d = new Date();
+    const urlParams = new URLSearchParams(window.location.search);
+    weeksAgo = parseInt(urlParams.get('weeks-ago'));
+    weeksAgo = (Number.isInteger(weeksAgo) && weeksAgo >= 0)? weeksAgo : 0;
+
+    d.setDate(d.getDate() - ((d.getDay() - 1) + (7 * weeksAgo)));
+    return d;
+}
+
+BetterMeetings.prototype.getSelectedWeekEnd_ = function() {
+    var d = new Date();
+    var urlParams = new URLSearchParams(window.location.search);
+    var weeksAgo = parseInt(urlParams.get('weeks-ago'));
+    weeksAgo = (Number.isInteger(weeksAgo) && weeksAgo >= 0)? weeksAgo : 0;
+
+    d.setDate(d.getDate() - ((d.getDay() - 1) + (7 * weeksAgo)) + 7);
+    return d;
+}
+
 BetterMeetings.prototype.processMeetings_ = function() {
     // Sort by latest first 
     this.meetingSaveData_.sort(function(a, b) {
@@ -79,11 +151,16 @@ BetterMeetings.prototype.processMeetings_ = function() {
     // Filter out meetings without any recorded participation
     this.meetingSaveData_ = this.meetingSaveData_.filter(value => value.meetingParticipants != null);
 
-    // Filter out any meetings that are before midnight last Sunday
-    const d = new Date();
-    d.setDate(d.getDate() - (d.getDay() - 1));
-    d.setHours(0,0,0,0);
-    this.meetingSaveData_ = this.meetingSaveData_.filter(value => value.meetingJoinTime > d.getTime());
+    this.earliestRecordedMeeting_ = this.meetingSaveData_[this.meetingSaveData_.length - 1];
+
+    // Filter out any meetings that are outside of selected week
+    const startDate = this.getSelectedWeekStart_();
+    startDate.setHours(0,0,0,0);
+    this.meetingSaveData_ = this.meetingSaveData_.filter(value => value.meetingJoinTime > startDate.getTime());
+
+    const endDate = this.getSelectedWeekEnd_();
+    endDate.setHours(0,0,0,0);
+    this.meetingSaveData_ = this.meetingSaveData_.filter(value => value.meetingJoinTime < endDate.getTime());
 }
 
 BetterMeetings.prototype.processMeetingsIntoDays_ = function(meetings) {

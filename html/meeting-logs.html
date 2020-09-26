@@ -49,7 +49,9 @@
                     <div class="col-lg-8">
                         <span id="template-output-week-starting">
                             <script id="template-week-starting" type="x-tmpl-handlebars">
-                                <h2 class="mt-5">Week of {{ currentDay }}<sup>{{ currentDayPostfix }}</sup> {{ currentMonth }} {{ currentYear }}</h2>
+                                <h2 class="mt-5">
+                                    Week of {{ currentDay }}<sup>{{ currentDayPostfix }}</sup> {{ currentMonth }} {{ currentYear }}
+                                </h2>
                             </script>
                         </span>
                         <p class="lead">Overview of all recorded meeting activity</p>
@@ -57,10 +59,10 @@
 
                     <div class="col-lg-4 filters">
                         <div class="dropdown">
-                          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButtonDays" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <button class="btn-sm btn-outline-dark dropdown-toggle" type="button" id="dropdownMenuButtonDays" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Filter by day
                           </button>
-                          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                          <div class="dropdown-menu filter-days" aria-labelledby="dropdownMenuButton">
                             <span id="template-output-filter-days">
                                 <script id="template-filter-days" type="x-tmpl-handlebars">
                                     {{#each filterDays as |item|}}
@@ -71,7 +73,7 @@
                           </div>
                         </div>
                         <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButtonOrganizer" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <button class="btn-sm btn-outline-dark dropdown-toggle" type="button" id="dropdownMenuButtonOrganizer" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Filter by organizer
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -80,6 +82,12 @@
                                 </form>
                             </div>
                         </div>
+                        <span id="template-output-week-select">
+                            <script id="template-week-select" type="x-tmpl-handlebars">
+                                <a href="{{ previousWeekURL }}" role="button" class="{{ previousWeekDisabled }} btn btn-secondary btn-sm">Previous week</a>
+                                <a href="{{ nextWeekURL }}" role="button" class="{{ nextWeekDisabled }} ml-2 btn btn-secondary btn-sm">Next week</a>
+                            </script>
+                        </span>
                     </div>
                 </div>
 

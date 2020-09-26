@@ -14,6 +14,8 @@ Object.defineProperty(BetterMeetingsOverview.prototype, 'constructor', {
 /***********************/
 
 BetterMeetingsOverview.prototype.renderPageDetails_ = function() {
+    BetterMeetings.prototype.renderPageDetails_.call(this);
+    
     this.renderAvgTimeInMeetings_();
     this.renderAvgMeetingsPerDay_();
     this.renderSavedTime_();
@@ -60,7 +62,7 @@ BetterMeetingsOverview.prototype.renderRecommendation_ = function() {
     var participationThreshold = Math.round(this.participationThreshold_ / 1000);
     var recommendationDefault = "No tips yet, check back later in the week!"; 
     var recommendation = `Your participation was < ${participationThreshold} seconds in ${this.processedMeetings_.percentageNonParticipation}%
-        of your meetings this week. You should <a class="text-warning" href="meeting-logs.html?requestedFilter=participation" target="_blank">review</a> whether your attendance
+        of your meetings this week. You should <a class="text-warning" href="meeting-logs.html?requested-filter=participation" target="_blank">review</a> whether your attendance
         is still required`;
 
     if(isNaN(this.processedMeetings_.percentageNonParticipation)|| this.processedMeetings_.percentageNonParticipation == 0) {

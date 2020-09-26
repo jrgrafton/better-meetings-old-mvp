@@ -14,7 +14,8 @@ Object.defineProperty(BetterMeetingsMeetingLogs.prototype, 'constructor', {
 /***********************/
 
 BetterMeetingsMeetingLogs.prototype.renderPageDetails_ = function() {
-    this.renderWeekStarting_();
+    BetterMeetings.prototype.renderPageDetails_.call(this);
+    
     this.renderMeetings_();
     this.renderDayFilter_();
 
@@ -28,27 +29,10 @@ BetterMeetingsMeetingLogs.prototype.pageDetailsHaveRendered_ = function() {
     this.activatePersonFilter_();
 
     var urlParams = new URLSearchParams(window.location.search);
-    var requestedFilter = urlParams.get("requestedFilter");
+    var requestedFilter = urlParams.get("requested-filter");
     if(requestedFilter != null) {
         this.activateRequestedFilter_(requestedFilter);
     }
-}
-
-BetterMeetingsMeetingLogs.prototype.renderWeekStarting_ = function() {
-    var dateData = {}
-    var template = document.querySelector("#template-week-starting").innerHTML;
-
-    const monthNames = ["January", "February", "March", "April", "May", "June",
-  "July", "August", "September", "October", "November", "December"];
-    const d = new Date();
-    d.setDate(d.getDate() - (d.getDay() - 1)); // Get date for previous Monday
-
-    dateData.currentYear = d.getFullYear();
-    dateData.currentMonth = monthNames[d.getMonth()];
-    dateData.currentDay = d.getDate();
-    dateData.currentDayPostfix = this.getDayPostfix_(dateData.currentDay);
-
-    this.sendRenderTemplateRequest_(template, dateData, "#template-output-week-starting");
 }
 
 BetterMeetingsMeetingLogs.prototype.processMeetings_ = function() {
@@ -186,7 +170,8 @@ BetterMeetingsMeetingLogs.prototype.renderDayFilter_ = function() {
 
 BetterMeetingsMeetingLogs.prototype.activateDayFilter_ = function() {
     var filterClicked = function(event) {
-        document.querySelectorAll("#template-output-filter-days a").forEach(function(value, index) {
+        console.log("test");
+        document.querySelectorAll(".dropdown-menu.filter-days a").forEach(function(value, index) {
             value.classList.remove("active");
         });
         event.target.classList.add("active");
@@ -217,7 +202,7 @@ BetterMeetingsMeetingLogs.prototype.activateDayFilter_ = function() {
         }
     }.bind(this);
 
-    document.querySelectorAll("#template-output-filter-days a").forEach(function(value, index){
+    document.querySelectorAll(".dropdown-menu.filter-days a").forEach(function(value, index){
         value.onclick = filterClicked;
     });
 }
