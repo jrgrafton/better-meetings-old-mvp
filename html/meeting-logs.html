@@ -6,7 +6,7 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
 
-    <title>BetterMeetings</title>
+    <title>FocusFluent</title>
 
     <link rel="stylesheet" href="../css/bootstrap.min.css" crossorigin="anonymous" />
     <link rel="stylesheet" href="../css/better-meetings.css" />
@@ -16,7 +16,7 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
       <div class="container">
-        <a class="navbar-brand" href="#">BetterMeetings</a>
+        <a class="navbar-brand" href="#">FocusFluent</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -40,10 +40,18 @@
       <div class="row">
         <div class="col-lg-2"></div>
         <div class="col-lg-8">
-            <span class="no-meetings-found">
-              <h1 class="mt-5">No meetings</h1>
-              <p class="lead">No meetings have been recorded yet this week, check back later</p>
-            </span>
+            <div class="no-meetings-found">
+                <h1 class="mt-5">No meetings</h1>
+                <p class="lead">No meetings have been recorded yet this week, check back later</p>
+                <div class="week-select">
+                  <span class="template-output-week-select">
+                    <script id="template-week-select" type="x-tmpl-handlebars">
+                        <a href="{{ previousWeekURL }}" role="button" class="{{ previousWeekDisabled }} btn btn-secondary btn-sm">Previous week</a>
+                        <a href="{{ nextWeekURL }}" role="button" class="{{ nextWeekDisabled }} ml-2 btn btn-secondary btn-sm">Next week</a>
+                    </script>
+                  </span>
+                </div>
+            </div>
             <span class="meetings-found">
                 <div class="row header">
                     <div class="col-lg-8">
@@ -82,7 +90,7 @@
                                 </form>
                             </div>
                         </div>
-                        <span id="template-output-week-select">
+                        <span class="template-output-week-select">
                             <script id="template-week-select" type="x-tmpl-handlebars">
                                 <a href="{{ previousWeekURL }}" role="button" class="{{ previousWeekDisabled }} btn btn-secondary btn-sm">Previous week</a>
                                 <a href="{{ nextWeekURL }}" role="button" class="{{ nextWeekDisabled }} ml-2 btn btn-secondary btn-sm">Next week</a>

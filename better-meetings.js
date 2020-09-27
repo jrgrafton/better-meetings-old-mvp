@@ -100,18 +100,18 @@ BetterMeetings.prototype.renderWeekSelect_ = function() {
         weekData.previousWeekURL = "?" + urlParams.toString();
     }
 
-    this.sendRenderTemplateRequest_(template, weekData, "#template-output-week-select");
+    this.sendRenderTemplateRequest_(template, weekData, ".template-output-week-select");
 }
 
 BetterMeetings.prototype.pageDetailsHaveRendered_ = function() {
     // Display page
     if(isNaN(this.processedMeetings_.avgTimeInMeetingsPerDay)) {
-        document.querySelector(".no-meetings-found").style.display = "inline";
+        document.querySelector(".no-meetings-found").style.display = "block";
         document.querySelector(".meetings-found").style.display = "none";
     }
     else {
         document.querySelector(".no-meetings-found").style.display = "none";
-        document.querySelector(".meetings-found").style.display = "inline";
+        document.querySelector(".meetings-found").style.display = "block";
     }
     document.querySelector(".page-container").classList.add("loaded");
 
@@ -247,22 +247,19 @@ BetterMeetings.prototype.sendRenderTemplateRequest_ = function(renderTemplate, r
 BetterMeetings.prototype.handleMessageRecieved_ = function(event) {
     var command = event.data.command;
     var targetElementSelector = event.data.targetElementSelector;
-    var html = event.data.html;
+    var html = event.data.html.trim();
 
     switch(command) {
         case 'render':
-            // Replace targetElementSelector with rendered html
-            var template = document.createElement('template');
-            var lastNode = null;
-            template.innerHTML = html.trim();
-            template.content.childNodes.forEach(function(value, index) {
-                if(lastNode === null) {
-                    document.querySelector(targetElementSelector).replaceWith(value);
+            document.querySelectorAll(targetElementSelector).forEach(function(targetNode, index) {
+                var targetNodeParent = targetNode.parentNode;
+                targetNode.innerHTML = html;
+                while (targetNodeChild = targetNode.firstChild) {
+                  // insert all our children before ourselves.
+                  targetNodeParent.insertBefore(targetNodeChild, targetNode);
                 }
-                else {
-                    lastNode.after(value);
-                }
-                lastNode = value;
+                targetNodeParent.removeChild(targetNode);
+
             }.bind(this));
         break;
     }
