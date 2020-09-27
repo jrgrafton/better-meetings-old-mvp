@@ -59,10 +59,13 @@ BetterMeetingsOverview.prototype.renderParticipationTime_ = function() {
 
 BetterMeetingsOverview.prototype.renderRecommendation_ = function() {
     // TODO: https://trello.com/c/Z66kIE9g/53-expand-recommendations-beyond-reviewing-meetings-youre-not-participating-in
+    var urlParams = new URLSearchParams(window.location.search);
+    urlParams.set("requested-filter", "participation");
+
     var participationThreshold = Math.round(this.participationThreshold_ / 1000);
     var recommendationDefault = "No tips yet, check back later in the week!"; 
     var recommendation = `Your participation was < ${participationThreshold} seconds in ${this.processedMeetings_.percentageNonParticipation}%
-        of your meetings this week. You should <a class="text-warning" href="meeting-logs.html?requested-filter=participation" target="_blank">review</a> whether your attendance
+        of your meetings this week. You should <a class="text-warning" href="meeting-logs.html?${urlParams.toString()}" target="_blank">review</a> whether your attendance
         is still required`;
 
     if(isNaN(this.processedMeetings_.percentageNonParticipation)|| this.processedMeetings_.percentageNonParticipation == 0) {
